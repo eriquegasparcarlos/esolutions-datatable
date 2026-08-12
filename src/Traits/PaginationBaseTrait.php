@@ -12,6 +12,9 @@ trait PaginationBaseTrait
 
     protected string $tableTitle;
 
+    /** Subtítulo opcional del reporte (se muestra bajo el título). */
+    protected string $tableSubtitle = '';
+
     protected array $visibleColumns = [];
 
     /** Columnas elegidas por el usuario para exportar (persistidas por tabla). */
@@ -37,6 +40,7 @@ trait PaginationBaseTrait
 
         $this->pageTitle = __($config['page_title']);
         $this->tableTitle = __($config['table_title']);
+        $this->tableSubtitle = isset($config['table_subtitle']) ? __($config['table_subtitle']) : '';
         $this->tableName = $config['table_name'];
         $this->columns = $this->getColumns();
         $this->filters = $this->getFilters();
@@ -47,6 +51,7 @@ trait PaginationBaseTrait
             'pageTitle' => $this->pageTitle,
             'tableName' => $this->tableName,
             'tableTitle' => $this->tableTitle,
+            'tableSubtitle' => $this->tableSubtitle,
             'columns' => $this->columns,
             'filters' => $this->filters,
             'visibleColumns' => $this->visibleColumns,
