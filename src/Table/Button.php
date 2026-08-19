@@ -59,11 +59,18 @@ class Button implements JsonSerializable
     }
 
     /**
-     * Define el icono del botón (usa FontAwesome por defecto).
+     * Define el icono del botón.
+     *
+     * Se guarda el ROL ('add', 'edit', 'delete'), no el nombre de un icon set
+     * concreto: es x-components el que decide con que se dibuja. Antes aca se
+     * prefijaba 'fal fa-', lo que ataba el backend a FontAwesome Pro.
+     *
+     * Los nombres viejos de FontAwesome siguen funcionando: el resolvedor del
+     * front los reconoce. Ver icons/README.md de x-components.
      */
     public function icon(string $icon): self
     {
-        $this->icon = 'fal fa-'.$icon;
+        $this->icon = $icon;
 
         return $this;
     }
@@ -160,7 +167,7 @@ class Button implements JsonSerializable
     {
         return self::make()
             ->label($label)
-            ->icon('plus')
+            ->icon('add')
             ->action('new')
             ->color('primary')
             ->url($url)
@@ -174,7 +181,7 @@ class Button implements JsonSerializable
     {
         return self::make()
             ->label($label)
-            ->icon('pencil')
+            ->icon('edit')
             ->action('edit')
             ->color('default')
             ->url($url)
@@ -203,7 +210,7 @@ class Button implements JsonSerializable
         $tooltip = $tooltip === '' ? __('refresh') : $tooltip;
 
         return self::make()
-            ->icon('arrows-rotate')
+            ->icon('refresh')
             ->action('refresh')
             ->color('primary')
             ->url($url)
@@ -231,7 +238,7 @@ class Button implements JsonSerializable
     {
         return self::make()
             ->label($label)
-            ->icon('xmark')
+            ->icon('delete')
             ->action('delete')
             ->color('red')
             ->url($url)
@@ -245,7 +252,7 @@ class Button implements JsonSerializable
     {
         return self::make()
             ->label($label)
-            ->icon('eye')
+            ->icon('view')
             ->action('view')
             ->color('default')
             ->url($url)
@@ -258,7 +265,7 @@ class Button implements JsonSerializable
     public static function activeButton($row, ?string $label = null, ?string $url = null, ?string $tooltip = null): self
     {
         $isActive = is_array($row) ? ($row['is_active'] ?? false) : ($row->is_active ?? false);
-        $icon = $isActive ? 'shield-xmark' : 'shield-check';
+        $icon = $isActive ? 'deactivate' : 'activate';
         $color = $isActive ? 'red' : 'green';
         $defaultLabel = $isActive ? 'Desactivar' : 'Activar';
 
@@ -277,7 +284,7 @@ class Button implements JsonSerializable
     public static function activeButtonOnlyIcon($row, ?string $url = null, ?string $tooltip = null): self
     {
         $isActive = is_array($row) ? ($row['is_active'] ?? false) : ($row->is_active ?? false);
-        $icon = $isActive ? 'shield-xmark' : 'shield-check';
+        $icon = $isActive ? 'deactivate' : 'activate';
         $color = $isActive ? 'red' : 'green';
         $defaultTooltip = $isActive ? 'Desactivar' : 'Activar';
 

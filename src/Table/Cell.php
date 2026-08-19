@@ -47,7 +47,7 @@ class Cell
      * @param  string|null  $type               Tipo predefinido: success, danger, warning, info, primary, secondary, neutral
      * @param  bool         $is_lighten_color   Si usar variante light (solo para color custom)
      * @param  string       $variant            'light' (default, bg suave) o 'solid' (bg fuerte + texto blanco)
-     * @param  string|null  $icon               Icono opcional (ej: 'fa-light fa-check')
+     * @param  string|null  $icon               Icono opcional, por rol (ej: 'success')
      * @param  string       $icon_position      'left' (default) o 'right'
      */
     public static function badge(

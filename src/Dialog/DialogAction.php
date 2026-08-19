@@ -14,7 +14,7 @@ class DialogAction
             'description'         => "¿Está seguro que desea eliminar $type <strong>$name</strong>? Esta acción no puede ser deshecha.",
             'button_label_submit' => __('delete'),
             'button_color'        => 'red',
-            'icon'                => 'triangle-exclamation',
+            'icon'                => 'warning',
             'icon_color'          => 'red',
             'verify_password'     => $verifyPassword,
         ];
@@ -31,7 +31,7 @@ class DialogAction
                 : "¿Está seguro que desea activar el $type <strong>$name</strong>?",
             'button_label_submit' => $isActive ? __('deactivate') : __('activate'),
             'button_color'        => $isActive ? 'red' : 'green',
-            'icon'                => $isActive ? 'shield-xmark' : 'shield-check',
+            'icon'                => $isActive ? 'deactivate' : 'activate',
             'icon_color'          => $isActive ? 'red' : 'green',
             'verify_password'     => $verifyPassword,
         ];
@@ -44,7 +44,7 @@ class DialogAction
             'description'         => $description,
             'button_label_submit' => __('confirm'),
             'button_color'        => 'primary',
-            'icon'                => 'circle-info',
+            'icon'                => 'info',
             'icon_color'          => 'primary',
             'verify_password'     => false,
         ], $options);

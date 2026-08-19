@@ -39,7 +39,7 @@ class ButtonBuilder implements JsonSerializable
      * @param  string|null  $icon  Icono opcional para el grupo.
      * @return $this
      */
-    public function addButtonGroup(array $buttons, ?string $label = null, ?string $icon = 'fal fa-ellipsis-vertical'): self
+    public function addButtonGroup(array $buttons, ?string $label = null, ?string $icon = 'menu'): self
     {
         // 1) eliminar nulls y valores falsy que no sean botones
         $buttons = array_values(array_filter($buttons, fn ($b) => $b !== null));

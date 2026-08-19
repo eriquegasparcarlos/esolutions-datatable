@@ -1,5 +1,21 @@
 # Changelog
 
+## [v2.2.0] - 2026-08-19
+### Changed
+- **Icons are now roles, not FontAwesome class names.** `Button::icon()` no longer
+  prefixes `fal fa-`: it stores the role (`add`, `edit`, `delete`) and the frontend
+  decides how to draw it. The four conventions that coexisted (Button prefixed,
+  BulkAction expected a full string, DialogAction sent a bare name, ButtonBuilder
+  had a hardcoded literal) are now the same one.
+- Renamed to roles: `plus`→`add`, `pencil`→`edit`, `arrows-rotate`→`refresh`,
+  `eye`→`view`, `shield-check`/`shield-xmark`→`activate`/`deactivate`,
+  `triangle-exclamation`→`warning`, `circle-info`→`info`.
+- `Button::deleteButton()` used `xmark` (close) — now uses `delete`.
+
+### Requires
+- `@esolutions/x-components >= 2.17.0`. With an older version the frontend does not
+  resolve roles and buttons render without an icon.
+
 ## [v1.2.2] - 2026-06-11
 ### Fixed
 - Removed hardcoded `"version"` field from `composer.json` (caused Packagist to skip tags)

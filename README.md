@@ -151,7 +151,7 @@ Retorna:
     "description": "¿Está seguro que desea eliminar el plan <strong>Básico</strong>?",
     "button_label_submit": "Eliminar",
     "button_color": "red",
-    "icon": "triangle-exclamation",
+    "icon": "warning",
     "icon_color": "red",
     "verify_password": false
 }
@@ -264,6 +264,29 @@ $buttons = (new ButtonBuilder())
 | `Button::newButton()` | Abre el formulario de creación |
 | `Button::refreshButton()` | Recarga la tabla |
 | `Button::exportButton()` | Exporta a Excel |
+
+### Iconos
+
+`->icon()` recibe un **rol**, no el nombre de un icono de una librería
+concreta:
+
+```php
+Button::make()->label('Guardar')->icon('save')
+```
+
+Quién dibuja el icono lo decide el frontend (`x-components`), que trae los
+suyos como SVG. Hasta la v2.1.0 este paquete prefijaba `fal fa-` por su cuenta,
+lo que ataba el backend a FontAwesome Pro.
+
+Los roles disponibles están en `icons/roles.json` de x-components; los más
+usados desde acá son `add`, `edit`, `delete`, `view`, `copy`, `refresh`,
+`download`, `activate`, `deactivate`, `warning`, `info`, `blocked`.
+
+Los nombres viejos de FontAwesome (`fal fa-trash`) siguen resolviendo, así que
+un proyecto que todavía los tenga escritos no se rompe.
+
+> **Requiere `@esolutions/x-components >= 2.17.0`.** Con una version anterior
+> el frontend no resuelve los roles y los botones quedan sin icono.
 
 ---
 

@@ -18,13 +18,13 @@ use JsonSerializable;
  *           BulkAction::make()
  *               ->action('deactivate')
  *               ->label('Desactivar')
- *               ->icon('fa-light fa-ban')
+ *               ->icon('blocked')
  *               ->confirm('¿Desactivar {count} usuario(s)?'),
  *
  *           BulkAction::make()
  *               ->action('delete')
  *               ->label('Eliminar')
- *               ->icon('fa-light fa-trash')
+ *               ->icon('delete')
  *               ->color('negative')
  *               ->divider()  // separa visualmente del item anterior
  *               ->confirm('¿Eliminar PERMANENTEMENTE {count} usuario(s)?', 'Si, eliminar'),
