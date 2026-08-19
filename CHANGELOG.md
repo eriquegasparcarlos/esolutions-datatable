@@ -1,5 +1,13 @@
 # Changelog
 
+## [v2.3.0] - 2026-08-19
+### Added
+- `Filter::makePeriod()->includeAllOption()`: adds a "Todos" option that disables
+  the date filter. The period block of `XTableServer` does not support the
+  `include-all-option` prop, so the option is prepended server-side in the
+  options array. `getFilterDate()` returns explicit nulls for `'all'` — the
+  consumer must skip its `whereBetween` when both dates are null.
+
 ## [v2.2.0] - 2026-08-19
 ### Changed
 - **Icons are now roles, not FontAwesome class names.** `Button::icon()` no longer
