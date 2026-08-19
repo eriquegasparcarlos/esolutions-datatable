@@ -282,8 +282,11 @@ Los roles disponibles están en `icons/roles.json` de x-components; los más
 usados desde acá son `add`, `edit`, `delete`, `view`, `copy`, `refresh`,
 `download`, `activate`, `deactivate`, `warning`, `info`, `blocked`.
 
-Los nombres viejos de FontAwesome (`fal fa-trash`) siguen resolviendo, así que
-un proyecto que todavía los tenga escritos no se rompe.
+Los nombres de FontAwesome (`fal fa-trash`) pasan intactos al frontend, que los
+deja dibujar al FontAwesome del proyecto: un proyecto que todavía los tenga
+escritos no se rompe. Y un icono de dominio que no tenga rol (`user-hoodie`,
+`money-bill`) se puede mandar pelado — x-components lo entrega como
+`fa-light fa-<nombre>`.
 
 > **Requiere `@esolutions/x-components >= 2.17.0`.** Con una version anterior
 > el frontend no resuelve los roles y los botones quedan sin icono.
