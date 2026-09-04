@@ -1,5 +1,27 @@
 # Changelog
 
+## [v2.4.0] - 2026-09-03
+### Changed
+- **The package now also runs on PHP 7.4 / Laravel 5.7.** Constraints widened to
+  `php: ^7.4|^8.0` and `laravel/framework: ^5.7|^11.0|^12.0|^13.0` so qpospe (5.7)
+  and qpospev2 (13) can share the same listing code — a DataTable moves between
+  them by changing the `use`, nothing else.
+- `Cell::badgeIsActive()` and `Cell::badgeBoolean()` call `badge()` positionally
+  instead of with named arguments (PHP 8.0+). Those two calls were the *only*
+  PHP 8 syntax in the whole package; everything else already parsed on 7.4.
+  Behaviour is unchanged — verified the four returned arrays are identical.
+
+### Removed
+- `esolutions/laravel` from `require`. It was never imported anywhere in `src/`
+  and its own `php: ^8.2` was what actually blocked installing on 7.4.
+
+### Note
+- A `php -l` check over `src/` on PHP 7.4 is now **required** before releasing.
+  Composer cannot catch this: with `^7.4|^8.0` declared, a named argument or an
+  enum installs without complaint and only blows up at runtime on 7.4. The
+  Actions workflow for it is pending (the token used to push lacked the
+  `workflow` scope).
+
 ## [v2.3.0] - 2026-08-19
 ### Added
 - `Filter::makePeriod()->includeAllOption()`: adds a "Todos" option that disables

@@ -240,10 +240,14 @@ class Cell
             ? ($row['is_active'] ?? false)
             : ($row->is_active ?? false);
 
+        // Posicionales y no named arguments: el paquete tambien corre en PHP 7.4.
+        // Orden: label, color, type, is_lighten_color, variant.
         return self::badge(
-            label: $isActive ? $yesText : $noText,
-            type: $isActive ? 'success' : 'danger',
-            variant: $variant
+            $isActive ? $yesText : $noText,
+            null,
+            $isActive ? 'success' : 'danger',
+            true,
+            $variant
         );
     }
 
@@ -254,10 +258,13 @@ class Cell
      */
     public static function badgeBoolean($value, string $yesText = 'Si', string $noText = 'No', string $variant = 'light'): array
     {
+        // Posicionales: ver badgeIsActive().
         return self::badge(
-            label: $value ? $yesText : $noText,
-            type: $value ? 'success' : 'neutral',
-            variant: $variant
+            $value ? $yesText : $noText,
+            null,
+            $value ? 'success' : 'neutral',
+            true,
+            $variant
         );
     }
 
