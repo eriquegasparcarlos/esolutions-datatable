@@ -1,5 +1,14 @@
 # Changelog
 
+## [v2.4.1] - 2026-09-03
+### Fixed
+- `Button::newButton()` now defaults its label to `'Nuevo'`. It was the only
+  preconfigured button left with a null label, so XTableServer rendered it as a
+  bare round icon — its header button template only shows text when
+  `button.label` is set. Every sibling (`editButton`, `duplicateButton`,
+  `exportButton`, `deleteButton`, `viewButton`) already had one; `refreshButton`
+  stays icon-only on purpose. Passing an explicit label still overrides it.
+
 ## [v2.4.0] - 2026-09-03
 ### Changed
 - **The package now also runs on PHP 7.4 / Laravel 5.7.** Constraints widened to

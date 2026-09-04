@@ -163,7 +163,7 @@ class Button implements JsonSerializable
     /**
      * Botón preconfigurado para agregar nuevo (con parámetros opcionales).
      */
-    public static function newButton(?string $label = null, ?string $url = null, ?string $tooltip = 'Nuevo'): self
+    public static function newButton(?string $label = 'Nuevo', ?string $url = null, ?string $tooltip = 'Nuevo'): self
     {
         return self::make()
             ->label($label)
