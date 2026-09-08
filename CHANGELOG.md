@@ -1,5 +1,24 @@
 # Changelog
 
+## [v2.4.2] - 2026-09-08
+### Fixed
+- `Filter::value()` dropped its `mixed` parameter type. `mixed` is PHP 8.0+; on
+  7.4 it is parsed as a **class name**, so every `->value('all')` call died with
+  *"Argument 1 passed to Filter::value() must be an instance of
+  Esolutions\Datatable\Table\mixed"*. 19 DataTables in qpospe call it 33 times,
+  always to preselect the "Todos" option, so the whole listing was unusable on
+  7.4. Behaviour on PHP 8 is unchanged: the type hint only removed a check.
+
+### Note
+- v2.4.0 claimed the two `badge()` named-argument calls were "the *only* PHP 8
+  syntax in the whole package". They were not — this `mixed` survived, and the
+  release note's own remedy would not have caught it: **`php -l` cannot detect
+  it**, because `mixed` is a syntactically valid class name on 7.4. It only
+  fails at call time. A lint pass is not enough; the package needs the 7.4 job
+  in CI actually running the code, which is still pending (the token used to
+  push lacks `workflow` scope, so `.github/` never made it to the remote).
+
+
 ## [v2.4.1] - 2026-09-03
 ### Fixed
 - `Button::newButton()` now defaults its label to `'Nuevo'`. It was the only

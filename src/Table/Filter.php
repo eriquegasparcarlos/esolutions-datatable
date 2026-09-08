@@ -101,7 +101,7 @@ class Filter implements \JsonSerializable
         return $this;
     }
 
-    public function value(mixed $value): self
+    public function value($value): self
     {
         $this->value = $value;
 
