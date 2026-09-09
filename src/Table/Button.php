@@ -33,7 +33,11 @@ class Button implements JsonSerializable
         $this->label = null;
         $this->icon = null;
         $this->action = null;
-        $this->color = 'default';
+        // Sin color. Antes era la cadena 'default', que Quasar no reconoce: un
+        // boton de cabecera con etiqueta salia con `bg-default`, clase que no
+        // existe, y se pintaba sin fondo — texto blanco sobre blanco, invisible.
+        // null es lo que Quasar espera para "sin color".
+        $this->color = null;
         $this->disable = false;
         $this->url = null;
         $this->size = '14px';
@@ -183,7 +187,6 @@ class Button implements JsonSerializable
             ->label($label)
             ->icon('edit')
             ->action('edit')
-            ->color('default')
             ->url($url)
             ->tooltip($tooltip);
     }
@@ -197,7 +200,6 @@ class Button implements JsonSerializable
             ->label($label)
             ->icon('copy')
             ->action('duplicate')
-            ->color('default')
             ->url($url)
             ->tooltip($tooltip);
     }
@@ -254,7 +256,6 @@ class Button implements JsonSerializable
             ->label($label)
             ->icon('view')
             ->action('view')
-            ->color('default')
             ->url($url)
             ->tooltip($tooltip);
     }

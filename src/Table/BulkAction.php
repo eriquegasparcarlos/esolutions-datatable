@@ -80,7 +80,8 @@ class BulkAction implements JsonSerializable
     }
 
     /**
-     * Color del item: 'default', 'negative' (rojo), 'positive', 'warning', 'info'.
+     * Color del item: 'negative' (rojo), 'positive', 'warning', 'info'. Sin color,
+     * null: no existe un color 'default' — Quasar no lo reconoce.
      * Se mapea a las variantes del XDropdownItem.
      */
     public function color(string $color): self

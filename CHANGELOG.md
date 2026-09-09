@@ -1,5 +1,29 @@
 # Changelog
 
+## [v2.4.4] - 2026-09-09
+### Fixed
+- **`Button` no longer defaults its color to the string `'default'`.** Quasar has
+  no such color, so `bg-default` does not exist: a header button with a label and
+  no explicit color rendered with no background — white text on white — and
+  looked missing. It was still there and clickable, which made it hard to spot.
+  The default is now `null`, which is what Quasar expects for "no color".
+
+  `editButton()`, `duplicateButton()` and `viewButton()` also dropped their
+  explicit `->color('default')` for the same reason. `BulkAction` already used
+  `null`; `Button` was the odd one out.
+
+### Note
+- Deliberately **not** defaulting to `'primary'`. In qpospe alone 131 buttons set
+  no color, nearly all of them row actions inside dropdowns, where the color goes
+  to the icon (`<q-icon :color="subBtn.color">`). Defaulting to primary would
+  turn all of them blue across every migrated screen — a wide cosmetic change
+  nobody asked for, to fix a bug that only affects labelled header buttons.
+
+  With `null`, dropdown icons render exactly as before. The only difference is in
+  XTableServer's two mobile paths, which read `action.color || 'grey-8'`: those
+  icons go from an inherited colour to an explicit grey. Same or better.
+
+
 ## [v2.4.3] - 2026-09-08
 ### Changed
 - **`Column::actions()` now defaults to `width('auto')`** instead of a fixed
