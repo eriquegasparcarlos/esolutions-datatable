@@ -1,5 +1,21 @@
 # Changelog
 
+## [v2.4.3] - 2026-09-08
+### Changed
+- **`Column::actions()` now defaults to `width('auto')`** instead of a fixed
+  `180px`, and takes the width as an argument: `Column::actions('160px')` for the
+  cases that still need a fixed one. XTableServer already understood `'auto'` —
+  it renders `width: 1px; white-space: nowrap`, shrinking the column to its
+  content — nothing was passing it.
+
+  There was no single good fixed width. A table with an edit and a delete button
+  wasted half the column; the cash listing, with four dropdown groups and 25
+  buttons, did not fit in it. Auto solves both without the caller deciding.
+
+  Existing callers that pass their own width are unaffected; those relying on
+  180px will see the column shrink or grow to fit its buttons.
+
+
 ## [v2.4.2] - 2026-09-08
 ### Fixed
 - `Filter::value()` dropped its `mixed` parameter type. `mixed` is PHP 8.0+; on

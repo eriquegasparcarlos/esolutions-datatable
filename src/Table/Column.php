@@ -279,13 +279,23 @@ class Column implements JsonSerializable
 
     /**
      * Columna predefinida para acciones.
+     *
+     * El ancho es 'auto' por defecto: XTableServer lo traduce a
+     * "width: 1px; white-space: nowrap", que encoge la columna a su contenido.
+     * Antes eran 180px fijos, y no habia un ancho bueno para todos: en una tabla
+     * con dos botones sobraba sitio y en una con menus desplegables faltaba.
+     *
+     * Se admite un ancho explicito para los casos en que haga falta cuadrarla con
+     * otra tabla o reservar espacio: Column::actions('160px').
+     *
+     * @param string $width 'auto' o cualquier medida CSS.
      */
-    public static function actions(): self
+    public static function actions(string $width = 'auto'): self
     {
         return self::make('actions')
             ->label(__('actions'))
             ->alignRight()
-            ->width('180px')
+            ->width($width)
             ->locked()
             ->sortable(false)
             ->exportable(false);
