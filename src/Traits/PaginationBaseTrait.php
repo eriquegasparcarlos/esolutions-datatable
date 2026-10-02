@@ -154,7 +154,25 @@ trait PaginationBaseTrait
 
     public function updateConfigurationDataTableBase($model, Request $request): void
     {
-        $this->tableName = $request->input('tableName', $this->tableName ?? '');
+        /*
+         * El nombre de la tabla puede llegar vacio: el frontend pide filas antes de tener su
+         * configuracion (XTableServer anterior a v2.32.0, si se llamaba a filterData() al
+         * montar) o un cliente de la API simplemente no lo manda. Laravel convierte el ''
+         * en null, y asignarlo a la propiedad `string` lanzaba un TypeError: un 500 por un
+         * dato que el servidor ya conoce. La tabla es siempre la que declara el listado.
+         */
+        $tableName = $request->input('tableName');
+
+        if ($tableName === null || $tableName === '') {
+            $tableName = $this->tableName ?? '';
+
+            if ($tableName === '' && method_exists($this, 'getTableConfig')) {
+                $config = $this->getTableConfig();
+                $tableName = isset($config['table_name']) ? $config['table_name'] : '';
+            }
+        }
+
+        $this->tableName = (string) $tableName;
         $this->visibleColumns = $request->input('visibleColumns', $this->visibleColumns);
         $this->sortBy = $request->input('sortBy', $this->sortBy);
         $this->descending = (bool) $request->input('descending', $this->descending);

@@ -1,5 +1,22 @@
 # Changelog
 
+## [v2.4.5] - 2026-10-02
+### Fixed
+- **A `records` request without `tableName` no longer fails with a 500.**
+  `updateConfigurationDataTableBase()` assigned `$request->input('tableName')`
+  straight to a `string` property. When the name arrives empty Laravel turns it
+  into `null`, and the assignment threw a `TypeError`.
+
+  It happens in practice: XTableServer (before x-components v2.32.0) could request
+  the first page while its own `init-data-table` was still in flight — any page
+  calling `filterData()` on mount triggered it — and an API client may simply not
+  send the name. The user saw an error toast and the table loaded on the second
+  request.
+
+  The table is always the one the listing declares, so an empty name now falls back
+  to `getTableConfig()['table_name']`. Same fallback `persistExportColumns()`
+  already used. A non-empty `tableName` from the request is honoured as before.
+
 ## [v2.4.4] - 2026-09-09
 ### Fixed
 - **`Button` no longer defaults its color to the string `'default'`.** Quasar has
