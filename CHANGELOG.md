@@ -1,6 +1,6 @@
 # Changelog
 
-## [v2.4.5] - 2026-10-02
+## [v2.4.5] - 2026-10-03
 ### Fixed
 - **A `records` request without `tableName` no longer fails with a 500.**
   `updateConfigurationDataTableBase()` assigned `$request->input('tableName')`
@@ -16,6 +16,16 @@
   The table is always the one the listing declares, so an empty name now falls back
   to `getTableConfig()['table_name']`. Same fallback `persistExportColumns()`
   already used. A non-empty `tableName` from the request is honoured as before.
+
+- **The page-size combo no longer ends in `3`.** `initPagination()` built its list as
+  `[5, 10, 20, 50, 3, $this->perPage]`. The `3` was hand-written, came in with the
+  package's first commit (v1.0.0) and never left; since `array_unique()` preserves
+  insertion order, it sat at the end of the combo in every listing.
+
+  The list is now sorted as well. `$this->perPage` stays in it on purpose: a saved
+  size that is not among the options gets added by Quasar itself, and Quasar puts it
+  **first** (`table-pagination.js`, `computedRowsPerPageOptions`), so a saved 25 used
+  to render as `5, 10, 20, 50, 3, 25`. It now renders as `5, 10, 20, 25, 50`.
 
 ## [v2.4.4] - 2026-09-09
 ### Fixed

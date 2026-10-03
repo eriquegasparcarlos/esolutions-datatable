@@ -75,7 +75,16 @@ trait PaginationBaseTrait
             return isset($col['sortable']) ? (bool) $col['sortable'] : false;
         });
 
-        $pageSizes = array_values(array_unique([5, 10, 20, 50, 3, $this->perPage]));
+        /*
+         * El tamano guardado por el usuario tiene que figurar en la lista: si no esta,
+         * Quasar lo agrega por su cuenta y lo pone PRIMERO (table-pagination.js,
+         * computedRowsPerPageOptions), con lo que el combo saldria desordenado.
+         *
+         * Y la lista se ordena, porque array_unique conserva el orden de aparicion: un
+         * perPage de 25 daba «5, 10, 20, 50, 25».
+         */
+        $pageSizes = array_unique([5, 10, 20, 50, $this->perPage]);
+        sort($pageSizes);
 
         return [
             'sortBy' => $defaultSortable['field'] ?? $this->sortBy,
