@@ -383,6 +383,35 @@ class Filter implements \JsonSerializable
         return $instance;
     }
 
+    /**
+     * Filtro de BOTONES: las opciones a la vista, cada una con su cantidad (los pasos de un
+     * proceso, los estados de una lista de trabajo: "Pendientes 3", "Listos 2"). Lo dibuja
+     * XTableServer (x-components >= 2.36) en la fila de filtros, al lado del buscador.
+     *
+     * Cada opción: ['id' => ..., 'name' => ..., 'color' => '#hex', 'count' => 3, 'hideEmpty' => true].
+     * `color` (un punto antes del texto), `count` y `hideEmpty` (se ve solo con cantidad) son
+     * opcionales. Siempre hay una elegida: la primera, salvo que se indique otra con
+     * default()/value().
+     *
+     * Las cantidades cambian con cada acción sobre las filas, así que la respuesta de
+     * registros las devuelve en `meta.filter_counts.{name}.{id}` y la tabla las actualiza en
+     * cada carga. Para "Todos" conviene un id que no sea 'all' (p. ej. 'any'): muchos
+     * backends tratan 'all' como "sin filtro, usar el valor por defecto".
+     */
+    public static function makeButtons(string $name, string $label = '', array $options = [], ?string $class = null): self
+    {
+        $first = isset($options[0]['id']) ? (string) $options[0]['id'] : null;
+
+        $instance = self::make($name)
+            ->label($label)
+            ->type('buttons')
+            ->options($options)
+            ->default($first)
+            ->value($first);
+        if ($class !== null) $instance->cssClass($class);
+        return $instance;
+    }
+
     public static function makePeriod(string $name = 'period', ?string $label = null, ?string $class = null): self
     {
         $periodOptions = [

@@ -49,6 +49,8 @@ class FilterBuilder implements JsonSerializable
         'select'      => 1,
         'tree-select' => 1,
         'date'        => 2,
+        // Los botones se ven todos a la vez: necesitan más ancho que un select.
+        'buttons'     => 3,
     ];
 
     /**

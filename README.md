@@ -235,6 +235,29 @@ Filter::makeSelect('status')->label('Estado')->options([
 ])
 ```
 
+#### Filtro de botones (`makeButtons`, desde v2.5.0)
+
+Las opciones a la vista con su cantidad, en la fila de filtros al lado del buscador
+(XTableServer de x-components >= 2.36). Siempre hay una elegida (la primera, o la que se
+indique con `default()`/`value()`).
+
+```php
+Filter::makeInput('input', 'Buscar', 'col-24 col-md-7'),
+Filter::makeButtons('status', 'Estado', [
+    ['id' => 'pending', 'name' => 'Pendientes', 'count' => 3],
+    ['id' => 'late', 'name' => 'Atrasados', 'color' => '#c10015', 'count' => 0, 'hideEmpty' => true],
+    ['id' => 'ready', 'name' => 'Listos', 'color' => '#21ba45', 'count' => 2],
+    ['id' => 'any', 'name' => 'Todos'],
+], 'col-24 col-md-17'),
+```
+
+Las cantidades cambian con cada acción sobre las filas: devolvelas también en cada
+respuesta de registros, en `meta.filter_counts`:
+
+```php
+$this->metaAdditional['meta']['filter_counts']['status'] = ['pending' => 3, 'late' => 1, 'ready' => 2];
+```
+
 ### `FilterBuilder`
 
 ```php

@@ -1,5 +1,24 @@
 # Changelog
 
+## [v2.5.0] - 2026-10-24
+### Added
+- **Button filter: `Filter::makeButtons($name, $label, $options, $class)`.** The options
+  are shown side by side, each one with its count — the steps of a process or the states of
+  a work list ("Pending 3", "In process 1", "Ready 2"). XTableServer (x-components >= 2.36)
+  draws it in the filter row, next to the search box, at the same height.
+
+  Each option is `['id' => ..., 'name' => ..., 'color' => '#hex', 'count' => 3, 'hideEmpty' => true]`;
+  `color` (a dot before the text), `count` and `hideEmpty` (shown only with a count above
+  zero) are optional. One option is always selected: the first, unless another is given with
+  `default()`/`value()`.
+
+  Counts change with every action on the rows, so they are not only sent once with the
+  table configuration: the `records` response returns them in
+  `meta.filter_counts.{name}.{id}` and the table updates its buttons on every load. That way
+  the count and the rows come from the same request and never disagree.
+
+- `FilterBuilder` auto-layout gives `buttons` weight 3 (wider than a select).
+
 ## [v2.4.5] - 2026-10-03
 ### Fixed
 - **A `records` request without `tableName` no longer fails with a 500.**
